@@ -10,22 +10,8 @@
 |
 */
 
+Route::group(['prefix' => ''], function(){
+	
+Route::resource('article','ArticlesController');
 
-/*Route::get('/accueil', 'PagesController@accueil')->name('accueil'); 
-
-
-   Route::get('/projet', 'PagesController@projet')->name('projet'); 
-
-
-   Route::get('/projet/{id}', 'PagesController@projetshow')->name('projetshow'); 
-
-
-   Route::get('/contact', 'PagesController@Contact')->name('contact'); 
-
-      Route::get('/contact', 'PagesController@Contact')->name('contact'); */
-
-
-   Route::group(['prefix' => ''], function(){
-   		Route::resource('article','ArticlesController');
-
-   	});
+});

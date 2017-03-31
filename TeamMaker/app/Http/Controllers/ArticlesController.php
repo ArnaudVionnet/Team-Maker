@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Article;
-use App\Commentaire;
-
+use App\Models\Article;
+use App\Models\Commentaire;
+use Validator;
 class ArticlesController extends Controller
 {
    
@@ -18,7 +18,6 @@ class ArticlesController extends Controller
     public function index()
     {
         $lesArticles=Article::all();
-        //dd($lesArticles);
         return view('article/index')->with('lesArticles', $lesArticles);
     }
 
@@ -29,7 +28,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
+        $lesArticles=Article::Pluck('titre','id');
+        return view('article/create', compact('lesArticles'));
     }
 
     /**
@@ -40,7 +40,22 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'titre' => 'required|max:30',
+            'contenu' => 'required|min:20',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/article/index')
+                        ->withErrors($validator)
+                        ->withInput();
+                    }
+         $unArticle= new Article();
+         $unArticle->titre=$request->get('titre');
+         $unArticle->contenu=$request->get('contenu');
+         $unArticle->save();
+         $request->session()->flash('success', 'Le projet a été créé !');
+        return redirect(route('article.index'));
     }
 
     /**
@@ -51,7 +66,8 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        //
+        $unArticle=Article::find($id);
+        return view('article/show',compact('unArticle'));
     }
 
     /**
@@ -85,7 +101,9 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article=Article::destroy($id);
+        $request->session()->flash('success', 'L"article a été supprimée !');
+        return redirect(route('article.index'));
     }
 }
 

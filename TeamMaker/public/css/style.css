@@ -176,6 +176,7 @@ hr {
 
 .centered {
 	text-align: center;
+    margin-bottom: 30px;
 }
 
 .goleft {
@@ -188,6 +189,8 @@ hr {
 
 .mt {
 	margin-top: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .mb {
@@ -987,7 +990,7 @@ PANELS CONFIGURATIONS
 /*Panel Size*/
 
 .pn {
-	height: 250px;
+	height: auto;
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -1030,23 +1033,27 @@ PANELS CONFIGURATIONS
 
 .darkblue-panel {
 	text-align: center;
-	background: #444c57;
+	background: #344A6C;
 }
 .darkblue-panel .darkblue-header {
 	background: transparent;
-	padding: 3px;
-	margin-bottom: 15px;
+	padding: 5px;
+	margin-bottom: 1px;
 }
 .darkblue-panel h1 {
 	color: #f2f2f2;
 }
-.darkblue-panel h5 {
+.darkblue-panel p {
 	font-weight: 200;
 	margin-top: 10px;
 	color: white;
 }
+.darkblue-panel h5 {
+    font-weight: 200;
+    margin-top: 10px;
+}
 .darkblue-panel footer {
-	color: white;
+
 }
 .darkblue-panel footer h5 {
 	margin-left:10px; 
@@ -2242,4 +2249,8 @@ label {
     min-height: 900px;
 }
 
+.article
+{
+    border-radius: 15px 15px 15px 15px;
 
+}
