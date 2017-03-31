@@ -11,5 +11,7 @@
 <img src="{{ url('https://lh3.googleusercontent.com/K-MNjDiO2WwRNwJqPZu8Wd5eOmFEjLYkEEgjZlv35hTiua_VylRPb04Lig3YZXLERvI=w300') }}">
 <br>
 <a href="{{ route('article.index') }}">Retour</a> 
-
+@foreach($unArticle->commentaires as $unCommentaire)
+{{ $unCommentaire["contenu"]}}
+@endforeach
 @stop
