@@ -13,13 +13,15 @@ class CreateSujetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('sujets', function (Blueprint $table) {
             $table->engine="InnoDB";
             $table->increments('id');
             $table->string('titre');
             $table->string('description');
+            $table->integer('jeux_id')->unsigned();
+            $table->foreign('jeux_id')->references('id')->on('jeuxs');
             $table->timestamps();
-        });
+            });
     }
 
     /**

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Article;
-use App\Models\Commentaire;
-use App\Models\Categorie;
-use Validator;
-class ArticlesController extends Controller
+use App\Models\Jeux;
+use App\Models\Sujet;
+use App\Models\Post;
+
+
+class ForumController extends Controller
 {
-   
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +18,9 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $lesArticles=Article::all();
-        return view('article/index')->with('lesArticles', $lesArticles);
+        $lesJeux=Jeux::orderBy('created_at', 'asc')->get();
+        //dd($lesArticles);
+        return view('forum/index')->with('lesJeux', $lesJeux);
     }
 
     /**
@@ -29,9 +30,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        $lesArticles=Categorie::Pluck('libelle','id');
-        return view('article/create', array('lesArticles'=>$lesArticles));
-     }
+        
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -41,23 +41,16 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'titre' => 'required|max:30',
-            'contenu' => 'required|min:20',
-        ]);
+        $unSujet= new Sujet();
+        $unSujet->titre=$request->get('titre');
+        $unSujet->description=$request->get('description');
+         $unSujet->jeux_id=$request->get('jeux_id');
+         $unSujet->save();
 
-        if ($validator->fails()) {
-            return redirect('admin/article/index')
-                        ->withErrors($validator)
-                        ->withInput();
-                    }
-         $unArticle= new Article();
-         $unArticle->titre=$request->get('titre');
-         $unArticle->contenu=$request->get('contenu');
-         $unArticle->categorie_id=$request->get('categorie_id');
-         $unArticle->save();
-         $request->session()->flash('success', 'Le projet a été créé !');
-        return redirect(route('article.index'));
+
+         
+        return back();
+
     }
 
     /**
@@ -68,8 +61,9 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        $unArticle=Article::find($id);
-        return view('article/show',compact('unArticle'));
+        $unJeux=Jeux::find($id);
+        return view('forum/show')->with('unJeux', $unJeux);
+
     }
 
     /**
@@ -103,9 +97,7 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        $article=Article::destroy($id);
-        $request->session()->flash('success', 'L"article a été supprimée !');
-        return redirect(route('article.index'));
+        //
     }
-}
 
+}

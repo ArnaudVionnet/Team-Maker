@@ -16,13 +16,14 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->engine="InnoDB";
             $table->increments('id');
-            $table->string('titre');
+            $table->string('titre'); 
             $table->string('contenu');
-            $table->string('image');
             $table->timestamps();
         });
     }
 
+    
+    
     /**
      * Reverse the migrations.
      *

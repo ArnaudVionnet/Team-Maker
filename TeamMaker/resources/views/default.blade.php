@@ -8,7 +8,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Games</title>
+    <title>Team Maker</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url('css/bootstrap.css') }}" rel="stylesheet">
@@ -38,8 +38,9 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="{{ route('article.index') }}" class="btnmenu logo"><b>Games</b></a>
+            <a href="{{ route('article.index') }}" class="btnmenu logo"><b>Team<span>-</span>Maker</b></a>
             <!--logo end-->
+@if( Auth::check())
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
@@ -105,28 +106,45 @@
                 </ul>
                 <!--  notification end -->
             </div>
+
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                {{ Form::open(['route' => 'logout', 'method' => 'post'])}}
+                <button type="submit" class="btn decon">Déconnexion</button>
+                {{ Form::close() }}
                 </ul>
             </div>
+
+@else
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href=" {{ route('register') }} ">Inscription</a></li>
+                </ul>
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href=" {{ route('login') }} ">Connexion</a></li>
+                </ul>
+            </div>
+@endif
+
         </header>
       <!--header end-->
       
-      <!-- **********************************************************************************************************************************************************
+      <!-- ************************************************************************************
       MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
+      ***************************************************************************************** -->
       <!--sidebar start-->
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-              
+                @if(auth::check())
                   <p class="centered"><a href="{{ route('article.index') }}"><img src="{{ url('img/ui-sam.jpg') }}" class="img-circle" width="60"></a></p>
-                  <h5 class="centered">Guillaume Gigandet</h5>
-                    
+                  <h5 class="centered">{{ Auth::user()->name }}</h5>
+                  @endif
                   <li class="mt">
-                      <a href="{{ route('article.index') }}">
+                      <a href="{{ route('home.index') }}">
                           <i class="fa fa-home"></i>
                           <span>Accueil</span>
                       </a>
@@ -152,18 +170,21 @@
                   </li>
 
                   <li class="sub-menu">
-                      <a  href="{{ route('article.index') }}" >
-                          <i class="fa fa-book"></i>
+                    <a @yield('forumActivation') href="{{ route('forum.index') }}" >
+                          <i class="fa fa-comments"></i>
                           <span>Forum</span>
+                        </a>
                       </a>
                   </li>
-
+                  @if(auth::check())
                   <li class="sub-menu">
                       <a  href="{{ route('article.index') }}" >
                           <i class="fa fa-cogs"></i>
                           <span>Categories</span>
                       </a>
                   </li>
+                  
+                  @endif
 
               </ul>
               <!-- sidebar menu end-->

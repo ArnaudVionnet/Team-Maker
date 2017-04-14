@@ -10,8 +10,12 @@
 |
 */
 
-Route::group(['prefix' => ''], function(){
-	
-Route::resource('article','ArticlesController');
-
-});
+   Route::group(['prefix' => ''], function(){
+   		Route::get('/','HomeController@index');
+   		Route::resource('article','ArticlesController');
+   		Route::resource('forum','ForumController');
+   		Route::resource('home','HomeController');
+   		Route::resource('forum/sujet','PostController');
+   		Route::post('forum/sujetshow/{id}','ForumController@sujetshow')->name('forum.sujetshow');
+   	});
+Auth::routes();

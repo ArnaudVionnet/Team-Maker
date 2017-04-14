@@ -17,7 +17,9 @@
     {{ Form::label('contenu','Contenu',['class'=>'col-sm-2 col-sm-2 control-label']) }}
     {{ Form::text('contenu', '',['class'=>'form-control','placeholder'=>'Insérez le contenu ici']) }}
 </div>   
-
+<div class="form-group">
+    {{ Form::select('categorie_id', $lesArticles)}}
+    </div>
 <button type="submit" class="btn btn-success">Créer</button>
 {{ Form::close() }}
 

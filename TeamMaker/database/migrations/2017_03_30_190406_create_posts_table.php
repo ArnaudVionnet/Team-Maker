@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJeuxsTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateJeuxsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jeuxs', function (Blueprint $table) {
-            $table->engine="InnoDB";
+        Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom'); 
-            $table->string('description');
+            $table->string('contenu');
+            $table->integer('sujet_id')->unsigned();
+            $table->foreign('sujet_id')->references('id')->on('sujets');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateJeuxsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('posts');
     }
 }
